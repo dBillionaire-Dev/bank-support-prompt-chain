@@ -1,6 +1,7 @@
 # Bank Customer Support — Prompt Chain
 
 An intelligent customer support system for a bank that processes a customer's free-text query through a **5-step prompt chain** to understand intent, classify the query, and generate an appropriate response.
+Built with TypeScript, using the OpenRouter API. No LangChain.
 
 ---
 
@@ -35,13 +36,15 @@ Each step's output feeds directly into the next, forming a reasoning chain: **un
 
 ```bash
 git clone <repo-url>
-cd bank-support
+cd bank-support-prompt-chain
 ```
 
 ### 2. Install dependencies
 
 ```bash
-npm install or pnpm install
+pnpm install
+# or
+npm install
 ```
 
 ### 3. Configure environment variables
@@ -65,16 +68,15 @@ MODEL_NAME=openai/gpt-4o-mini
 
 Run the script from the command line, passing the customer's query as the first argument:
 
+-- pnpm
 ```bash
-npx ts-node main.ts "I can't log into my online banking account"
+pnpm dev -- "I can't log into my online banking account"
 ```
+or
 
+-- npm
 ```bash
-npx ts-node main.ts "There's a charge on my account I don't recognise from last Tuesday for 45 Naira"
-```
-
-```bash
-npx ts-node main.ts "How do I apply for a home loan?"
+npm run dev -- "There's a charge on my account I don't recognise from last Tuesday for 45,000 Naira"
 ```
 
 ---
