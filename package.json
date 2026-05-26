@@ -4,6 +4,7 @@
   "description": "Intelligent bank customer support system using a 5-step prompt chain",
   "main": "main.ts",
   "scripts": {
+    "dev": "ts-node main.ts",
     "start": "ts-node main.ts",
     "build": "tsc"
   },

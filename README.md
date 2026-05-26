@@ -70,7 +70,7 @@ npx ts-node main.ts "I can't log into my online banking account"
 ```
 
 ```bash
-npx ts-node main.ts "There's a charge on my account I don't recognise from last Tuesday for 45 dollars"
+npx ts-node main.ts "There's a charge on my account I don't recognise from last Tuesday for 45 Naira"
 ```
 
 ```bash
