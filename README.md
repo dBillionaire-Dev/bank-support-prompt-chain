@@ -34,14 +34,14 @@ Each step's output feeds directly into the next, forming a reasoning chain: **un
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone <repo-url>
 cd bank-support
 ```
 
 ### 2. Install dependencies
 
 ```bash
-npm install
+npm install or pnpm install
 ```
 
 ### 3. Configure environment variables
@@ -103,7 +103,7 @@ The customer is experiencing difficulty accessing their online banking ...
 ... (steps 3–5 follow)
 
 ════════════════════════════════════════════════════════════
-  ✅  FINAL RESPONSE TO CUSTOMER
+  FINAL RESPONSE TO CUSTOMER
 ════════════════════════════════════════════════════════════
 Thank you for reaching out to us! I understand you're having trouble ...
 ════════════════════════════════════════════════════════════
@@ -141,3 +141,10 @@ bank-support/
 | `ts-node` | Run TypeScript directly without a build step |
 | `@types/node` | Node.js type definitions |
 | `@types/node-fetch` | node-fetch type definitions |
+
+
+## Author
+Ebenezer Ekunke(NexDev)
+
+## License
+None
