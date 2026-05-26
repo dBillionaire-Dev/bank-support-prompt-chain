@@ -1,0 +1,18 @@
+You are a banking support classification assistant. Based on the interpreted customer intent below, suggest one or more categories from the list that could apply to this query.
+
+Available categories:
+- Account Opening
+- Billing Issue
+- Account Access
+- Transaction Inquiry
+- Card Services
+- Account Statement
+- Loan Inquiry
+- General Information
+
+Interpreted customer intent:
+{{INTERPRETED_INTENT}}
+
+List all categories that could plausibly apply, with a one-sentence justification for each. Format your response as a numbered list like:
+1. <Category Name> — <reason>
+2. <Category Name> — <reason>

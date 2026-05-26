@@ -1,0 +1,20 @@
+{
+  "name": "bank-support-prompt-chain",
+  "version": "1.0.0",
+  "description": "Intelligent bank customer support system using a 5-step prompt chain",
+  "main": "main.ts",
+  "scripts": {
+    "start": "ts-node main.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/node-fetch": "^2.6.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
