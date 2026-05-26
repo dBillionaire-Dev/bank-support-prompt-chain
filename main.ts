@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-// ── Configuration ────────────────────────────────────────────────────────────
+// ── Configuration ──
 
 const API_KEY = process.env.OPENROUTER_API_KEY;
 const MODEL_NAME = process.env.MODEL_NAME;
@@ -21,7 +21,7 @@ if (!MODEL_NAME) {
 const PROMPTS_DIR = path.join(__dirname, "prompts");
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// ── Types ──
 
 interface Message {
   role: "user" | "assistant" | "system";
@@ -39,7 +39,7 @@ interface OpenRouterResponse {
   };
 }
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Helpers ──
 
 function loadPrompt(filename: string): string {
   const filepath = path.join(PROMPTS_DIR, filename);
@@ -76,9 +76,7 @@ async function callLLM(userMessage: string): Promise<string> {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(
-      `OpenRouter API error [${response.status}]: ${errorText}`
-    );
+    throw new Error(`OpenRouter API error [${response.status}]: ${errorText}`);
   }
 
   const data = (await response.json()) as OpenRouterResponse;
@@ -103,7 +101,7 @@ function printStep(stepNumber: number, title: string, output: string): void {
   console.log(output);
 }
 
-// ── Prompt-chain steps ───────────────────────────────────────────────────────
+// ── Prompt-chain steps ──
 
 async function step1InterpretIntent(customerQuery: string): Promise<string> {
   const template = loadPrompt("prompt1_interpret_intent.txt");
@@ -123,7 +121,9 @@ async function step2MapCategories(interpretedIntent: string): Promise<string> {
   return result;
 }
 
-async function step3ChooseCategory(possibleCategories: string): Promise<string> {
+async function step3ChooseCategory(
+  possibleCategories: string,
+): Promise<string> {
   const template = loadPrompt("prompt3_choose_category.txt");
   const prompt = fillTemplate(template, {
     POSSIBLE_CATEGORIES: possibleCategories,
@@ -135,8 +135,14 @@ async function step3ChooseCategory(possibleCategories: string): Promise<string> 
 
 async function step4ExtractDetails(
   customerQuery: string,
-  chosenCategoryBlock: string
-): Promise<{ raw: string; category: string; detailsProvided: string; detailsNeeded: string; urgency: string }> {
+  chosenCategoryBlock: string,
+): Promise<{
+  raw: string;
+  category: string;
+  detailsProvided: string;
+  detailsNeeded: string;
+  urgency: string;
+}> {
   // Parse category name from the block produced by step 3
   const categoryMatch = chosenCategoryBlock.match(/CHOSEN CATEGORY:\s*(.+)/i);
   const chosenCategory = categoryMatch
@@ -153,10 +159,10 @@ async function step4ExtractDetails(
 
   // Parse the structured output for use in step 5
   const detailsProvidedMatch = result.match(
-    /DETAILS ALREADY PROVIDED:\s*([\s\S]*?)(?=ADDITIONAL DETAILS NEEDED:|$)/i
+    /DETAILS ALREADY PROVIDED:\s*([\s\S]*?)(?=ADDITIONAL DETAILS NEEDED:|$)/i,
   );
   const detailsNeededMatch = result.match(
-    /ADDITIONAL DETAILS NEEDED:\s*([\s\S]*?)(?=URGENCY LEVEL:|$)/i
+    /ADDITIONAL DETAILS NEEDED:\s*([\s\S]*?)(?=URGENCY LEVEL:|$)/i,
   );
   const urgencyLevelMatch = result.match(/URGENCY LEVEL:\s*(.+)/i);
 
@@ -178,7 +184,7 @@ async function step5GenerateResponse(
   chosenCategory: string,
   detailsProvided: string,
   detailsNeeded: string,
-  urgencyLevel: string
+  urgencyLevel: string,
 ): Promise<string> {
   const template = loadPrompt("prompt5_generate_response.txt");
   const prompt = fillTemplate(template, {
@@ -193,14 +199,14 @@ async function step5GenerateResponse(
   return result;
 }
 
-// ── Main entry point ─────────────────────────────────────────────────────────
+// ── Main entry point ──
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
   if (args.length === 0) {
     console.error(
       'Usage: ts-node main.ts "<customer query>"\n' +
-        'Example: ts-node main.ts "I cannot log into my account"'
+        'Example: ts-node main.ts "I cannot log into my account"',
     );
     process.exit(1);
   }
@@ -224,13 +230,13 @@ async function main(): Promise<void> {
     category,
     detailsProvided,
     detailsNeeded,
-    urgency
+    urgency,
   );
 
   // Print final summary
   const divider = "═".repeat(60);
   console.log(`\n${divider}`);
-  console.log("  ✅  FINAL RESPONSE TO CUSTOMER");
+  console.log("FINAL RESPONSE TO CUSTOMER");
   console.log(divider);
   console.log(finalResponse);
   console.log(`${divider}\n`);
